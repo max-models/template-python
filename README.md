@@ -20,11 +20,5 @@ pip install -e .
 Run the code with
 
 ```
-app
-```
-
-For help message, run
-
-```
-app -h
+template-python
 ```
