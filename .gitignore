@@ -167,3 +167,7 @@ cython_debug/
 
 # Hidden files
 .DS_Store
+.pymon
+
+# Unit test output
+junit/
