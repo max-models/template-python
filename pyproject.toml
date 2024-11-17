@@ -17,7 +17,6 @@ classifiers = [
 dependencies = [
     "black",
     "isort",
-    "autopep8",
     "pytest",
 ]
 
