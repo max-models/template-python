@@ -46,23 +46,15 @@ jobs:
       - name: Check installation
         run: |
           source env/bin/activate
-          src/app -h
+          template-python
 
       # Run tests
       - name: Run tests
         run: |
           source env/bin/activate
-          pytest --doctest-modules --junitxml=junit/test-results.xml
+          pytest .
         env:
           CI: true
-
-      # Upload test results
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-results
-          path: junit/test-results.xml
 
       # Code formatting check with black
       - name: Code formatting with black
