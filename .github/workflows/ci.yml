@@ -55,12 +55,42 @@ jobs:
           pytest .
         env:
           CI: true
+  
+  # Linting job
+  lint:
+    runs-on: ubuntu-latest
 
-      # Code formatting check with black
-      - name: Code formatting with black and isort
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      # Cache pip dependencies
+      - name: Cache pip
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/pyproject.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      # Install linting tools
+      - name: Install linting tools
+        run: |
+          python -m venv env
+          source env/bin/activate
+          pip install --upgrade pip
+          pip install black isort
+
+      # Code formatting check with black and isort
+      - name: Run linters
         run: |
           source env/bin/activate
-          pip install black
-          pip install isort
           black --check src/
           isort --check src/
