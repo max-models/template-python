@@ -15,14 +15,19 @@ classifiers = [
     "Development Status :: 3 - Alpha",
 ]
 dependencies = [
-    "black",
-    "isort",
-    "pytest",
+    "numpy",
 ]
 
 [project.optional-dependencies]
-dev = ["check-manifest"]
-test = ["coverage"]
+test = ["pytest", "coverage"]
+dev = [
+    "template-python[test]",
+    "black",
+    "isort",
+    "ruff",
+    "pytest",
+]
+
 [project.urls]
 "Source" = "https://github.com/max-models/template-python"
 
