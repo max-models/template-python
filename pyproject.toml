@@ -26,6 +26,11 @@ dev = [
     "isort",
     "ruff",
 ]
+# https://medium.com/@pratikdomadiya123/build-project-documentation-quickly-with-the-sphinx-python-2a9732b66594
+docs = [
+    "sphinx",
+    "sphinx_rtd_theme",
+]
 
 [project.urls]
 "Source" = "https://github.com/max-models/template-python"
