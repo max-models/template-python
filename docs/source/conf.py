@@ -21,14 +21,16 @@ def copy_tutorials(app):
 
 def setup(app):
     app.connect("builder-inited", copy_tutorials)
+    # app.add_stylesheet("my-styles.css")
+    app.add_css_file("custom.css")
 
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = "python-template"
-copyright = "2025, Max Lindqvist"
-author = "Max Lindqvist"
+copyright = "2025, Max"
+author = "Max"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -40,7 +42,6 @@ extensions = [
     "myst_parser",  # enable Markdown support
 ]
 
-templates_path = ["_templates"]
 exclude_patterns = []
 
 # Recognize both .rst and .md
@@ -112,7 +113,7 @@ html_theme_options = {
 
     # HTML navbar class (Default: "navbar") to attach to <div> element.
     # For black navbar, do "navbar navbar-inverse"
-    'navbar_class': "navbar navbar-inverse",
+    'navbar_class': "navbar inverse",
 
     # Fix navigation bar to top of page?
     # Values: "true" (default) or "false"
@@ -133,7 +134,7 @@ html_theme_options = {
     # Currently, the supported themes are:
     # - Bootstrap 2: https://bootswatch.com/2
     # - Bootstrap 3: https://bootswatch.com/3
-    'bootswatch_theme': "united",
+    'bootswatch_theme': "flatly",
 
     # Choose Bootstrap version.
     # Values: "3" (default) or "2" (in quotes)
@@ -141,6 +142,8 @@ html_theme_options = {
 }
 
 html_static_path = ["_static"]
+templates_path = ['_templates']
+
 
 html_sidebars = {
     '**': []
