@@ -5,8 +5,6 @@
 
 import os
 import shutil
-# At the top.
-import sphinx_bootstrap_theme
 
 def copy_tutorials(app):
     src = os.path.abspath("../tutorials")
