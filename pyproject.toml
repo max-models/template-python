@@ -50,3 +50,7 @@ scripts.template-python = "app.main:main"
 
 [tool.setuptools.packages.find]
 where = [ "src" ]
+
+[tool.isort]
+profile = "black"
+
