@@ -34,7 +34,7 @@ runs:
       run: |
         cd docs
         if [ "${{ inputs.treat-warnings-as-errors }}" = "true" ]; then
-          sphinx-build -b html -W --keep-going source build/html
+          make html SPHINXOPTS="-W --keep-going"
         else
-          sphinx-build -b html source build/html
+          make html
         fi
