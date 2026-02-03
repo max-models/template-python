@@ -7,4 +7,4 @@ Here are a few tutorials to help you get started.
    :maxdepth: 1
    :glob:
 
-   tutorials/*.ipynb
+   tutorials/*
