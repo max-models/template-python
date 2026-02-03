@@ -44,12 +44,18 @@ done
 if [[ -f "pyproject.toml" ]]; then
   LC_ALL=C sed -i.bak "s/app\.main:main/${APPNAME_UNDERSCORE}.main:main/g" "pyproject.toml"
   rm -f "pyproject.toml.bak"
-fiand entry points
+fi
+
+# 4. Remove the test_setup_script.yml workflow since it's no longer needed
+if [[ -f ".github/workflows/test_setup_script.yml" ]]; then
+  rm -f ".github/workflows/test_setup_script.yml"
+fi
 
 
 echo "Done:"
 echo "  Replaced 'template-python' → '${APPNAME}'"
 echo "  Replaced 'template_python' → '${APPNAME_UNDERSCORE}'"
 echo "  Moved src/app → src/${APPNAME_UNDERSCORE}"
-echo "  Replaced import statements in src/**/*.py"
+echo "  Replaced import statements and entry points"
+echo "  Removed .github/workflows/test_setup_script.yml"
 echo "You can now remove this script with: rm setup_project.sh"
