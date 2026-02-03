@@ -37,3 +37,4 @@ done
 echo "Done:"
 echo "  Replaced 'testproject' → '${APPNAME}'"
 echo "  Moved src/app → src/${APPNAME_UNDERSCORE}"
+echo "  Replaced import statements in src/**/*.py"
