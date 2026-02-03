@@ -35,10 +35,13 @@ optional-dependencies.docs = [
   "nbconvert",
   "nbsphinx",
   "jupyterlab",
+  "linkify-it-py",
   "pre-commit",
   "pyproject-fmt",
   "sphinx",
   "sphinx-book-theme",
+  "sphinxcontrib-mermaid",
+  "sphinx-design",
 ]
 optional-dependencies.test = [ "coverage", "pytest" ]
 urls."Source" = "https://github.com/max-models/template-python"
