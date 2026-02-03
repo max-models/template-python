@@ -3,9 +3,20 @@
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 import os
+import shutil
 import sys
+from pathlib import Path
 
 sys.path.insert(0, os.path.abspath("../src"))
+
+# Copy tutorial notebooks from project root to docs/source/tutorials/
+tutorials_source = Path(__file__).parent.parent.parent / "tutorials"
+tutorials_dest = Path(__file__).parent / "tutorials"
+
+if tutorials_source.exists():
+    tutorials_dest.mkdir(exist_ok=True)
+    for notebook in tutorials_source.glob("*.ipynb"):
+        shutil.copy2(notebook, tutorials_dest / notebook.name)
 
 
 # -- Project information -----------------------------------------------------
