@@ -50,7 +50,7 @@ templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", "**/.ipynb_checkpoints"]
 
 # nbsphinx configuration
-nbsphinx_execute = "never"  # Don't execute notebooks during build
+nbsphinx_execute = "always"  # Execute notebooks during build
 
 
 # -- Options for HTML output -------------------------------------------------
