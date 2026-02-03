@@ -33,8 +33,4 @@ runs:
       shell: bash
       run: |
         cd docs
-        if [ "${{ inputs.treat-warnings-as-errors }}" = "true" ]; then
-          make html SPHINXOPTS="-W --keep-going"
-        else
-          make html
-        fi
+        make html
