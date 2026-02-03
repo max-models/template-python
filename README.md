@@ -28,7 +28,6 @@ template-python
 
 # Build docs
 
-
 ```
 make html
 cd ../

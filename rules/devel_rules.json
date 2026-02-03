@@ -6,10 +6,7 @@
   "conditions": {
     "ref_name": {
       "exclude": [],
-      "include": [
-        "~DEFAULT_BRANCH",
-        "refs/heads/devel"
-      ]
+      "include": ["~DEFAULT_BRANCH", "refs/heads/devel"]
     }
   },
   "rules": [
@@ -28,10 +25,7 @@
         "require_last_push_approval": true,
         "required_review_thread_resolution": true,
         "automatic_copilot_code_review_enabled": false,
-        "allowed_merge_methods": [
-          "merge",
-          "squash"
-        ]
+        "allowed_merge_methods": ["merge", "squash"]
       }
     }
   ],
