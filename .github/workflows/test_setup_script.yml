@@ -47,6 +47,20 @@ jobs:
           # Check that template-python was replaced in pyproject.toml
           if grep -q "template-python" pyproject.toml; then
             echo "Error: 'template-python' still found in pyproject.toml"
+            exit 1
+          fi
+
+          if ! grep -q "my-test-app" pyproject.toml; then
+            echo "Error: 'my-test-app' not found in pyproject.toml"
+            exit 1
+          fi
+
+          echo "✓ All checks passed!"
+
+      - name: Install project with new name
+        run: |
+          pip install --upgrade pip
+          pip install -e .
 
       - name: Test renamed command works
         run: |
