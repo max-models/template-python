@@ -23,6 +23,17 @@ else
   exit 1
 fi
 
+# 3. Replace import in src/**/*.py
+# from app.main import main -> from <appname_with_underscores>.main import main
+
+find src -type f -name "*.py" -print0 | while IFS= read -r -d '' file; do
+  LC_ALL=C sed -i.bak \
+    "s/from app\.main import main/from ${APPNAME_UNDERSCORE}.main import main/g" \
+    "$file"
+  rm -f "${file}.bak"
+done
+
+
 echo "Done:"
 echo "  Replaced 'testproject' → '${APPNAME}'"
 echo "  Moved src/app → src/${APPNAME_UNDERSCORE}"
