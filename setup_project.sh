@@ -50,7 +50,13 @@ if [[ -f "pyproject.toml" ]]; then
   rm -f "pyproject.toml.bak"
 fi
 
-# 4. Remove the test_setup_script.yml workflow since it's no longer needed
+# 4. Update docs/source/api/index.rst to reference the new module name
+if [[ -f "docs/source/api/index.rst" ]]; then
+  LC_ALL=C sed -i.bak "s/^   app$/   ${APPNAME_UNDERSCORE}/" "docs/source/api/index.rst"
+  rm -f "docs/source/api/index.rst.bak"
+fi
+
+# 5. Remove the test_setup_script.yml workflow since it's no longer needed
 if [[ -f ".github/workflows/test_setup_script.yml" ]]; then
   rm -f ".github/workflows/test_setup_script.yml"
 fi
