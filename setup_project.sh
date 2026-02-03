@@ -29,8 +29,9 @@ else
   exit 1
 fi
 
-# 3. Replace import in src/**/*.py
+# 3. Replace import in src/**/*.py and entry points
 # from app.main import main -> from <appname_with_underscores>.main import main
+# Also replace "app.main:main" -> "<appname_with_underscores>.main:main" in pyproject.toml
 
 find src -type f -name "*.py" -print0 | while IFS= read -r -d '' file; do
   LC_ALL=C sed -i.bak \
@@ -38,6 +39,12 @@ find src -type f -name "*.py" -print0 | while IFS= read -r -d '' file; do
     "$file"
   rm -f "${file}.bak"
 done
+
+# Replace app.main:main entry point in pyproject.toml
+if [[ -f "pyproject.toml" ]]; then
+  LC_ALL=C sed -i.bak "s/app\.main:main/${APPNAME_UNDERSCORE}.main:main/g" "pyproject.toml"
+  rm -f "pyproject.toml.bak"
+fiand entry points
 
 
 echo "Done:"
