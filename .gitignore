@@ -172,3 +172,4 @@ cython_debug/
 
 # Unit test output
 junit/
+docs/source/api/_autosummary/
