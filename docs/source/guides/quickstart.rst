@@ -1,6 +1,16 @@
-# Quickstart
+Quickstart
+==========
 
-First, ensure that `template-python` is installed on your system.
+First, ensure that ``template-python`` is installed on your system.
 
-```{toctree}
-:maxdepth: 1
+Basic Usage
+-----------
+
+After installation, you can run the application with::
+
+   template-python
+
+For more details, see the :doc:`install` guide.
+
+.. toctree::
+   :maxdepth: 1

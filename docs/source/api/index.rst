@@ -1,10 +1,13 @@
 API Reference
 =============
 
-This section contains the automatically generated C++ API reference.
+This section contains the automatically generated Python API reference.
 
-.. toctree::
-   :maxdepth: 1
-   :caption: Full API Index
+Modules
+-------
 
-   all_classes
+.. autosummary::
+   :toctree: _autosummary
+   :recursive:
+
+   app

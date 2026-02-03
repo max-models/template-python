@@ -27,7 +27,7 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinxcontrib.mermaid",
     "sphinx_design",
-    "myst_parser",
+    "nbsphinx",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
