@@ -1,4 +1,4 @@
-name: Test Pytest
+name: Test Tutorials
 
 on:
   push:
@@ -11,7 +11,7 @@ on:
       - devel
 
 jobs:
-  pytest:
+  tutorials:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,11 +31,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
 
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
+
       - name: Install project
         run: |
           pip install --upgrade pip
-          pip install ".[test]"
+          pip install ".[dev]"
 
-      - name: Run tests
+      - name: Execute tutorials
         run: |
-          pytest .
+          jupyter nbconvert --to notebook --execute tutorials/*.ipynb --output-dir=/tmp --ExecutePreprocessor.timeout=300
