@@ -9,9 +9,15 @@ fi
 APPNAME="$1"
 APPNAME_UNDERSCORE="${APPNAME//-/_}"
 
-# 1. Find and replace "testproject" with app name
-grep -rl "testproject" . | while IFS= read -r file; do
-  LC_ALL=C sed -i.bak "s/testproject/${APPNAME}/g" "$file"
+# 1. Find and replace "template-python" with app name
+grep -rl "template-python" . --exclude-dir=.git --exclude-dir=docs/build | while IFS= read -r file; do
+  LC_ALL=C sed -i.bak "s/template-python/${APPNAME}/g" "$file"
+  rm -f "${file}.bak"
+done
+
+# Also replace template_python with appname_underscore
+grep -rl "template_python" . --exclude-dir=.git --exclude-dir=docs/build | while IFS= read -r file; do
+  LC_ALL=C sed -i.bak "s/template_python/${APPNAME_UNDERSCORE}/g" "$file"
   rm -f "${file}.bak"
 done
 
@@ -35,7 +41,8 @@ done
 
 
 echo "Done:"
-echo "  Replaced 'testproject' → '${APPNAME}'"
+echo "  Replaced 'template-python' → '${APPNAME}'"
+echo "  Replaced 'template_python' → '${APPNAME_UNDERSCORE}'"
 echo "  Moved src/app → src/${APPNAME_UNDERSCORE}"
 echo "  Replaced import statements in src/**/*.py"
 echo "You can now remove this script with: rm setup_project.sh"
