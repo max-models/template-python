@@ -22,18 +22,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+      - name: Set up uv and Python ${{ matrix.python-version }}
+        uses: astral-sh/setup-uv@v6
         with:
           python-version: ${{ matrix.python-version }}
-          cache: pip
+          enable-cache: true
 
       - name: Install project
         run: |
-          pip install --upgrade pip
-          pip install ".[docs]"
-          python -m ipykernel install --user --name python3
+          uv sync --extra docs
+          uv run python -m ipykernel install --user --name python3
 
       - name: Execute tutorials
-        run: |
-          python docs/tools/notebooks.py execute --force
+        run: uv run python docs/tools/notebooks.py execute --force

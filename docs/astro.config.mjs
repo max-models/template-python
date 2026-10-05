@@ -31,6 +31,8 @@ export default defineConfig({
 			social: [
 				{ icon: 'github', label: 'GitHub', href: 'https://github.com/max-models/template-python' },
 			],
+			editLink: { baseUrl: 'https://github.com/max-models/template-python/edit/devel/docs/' },
+			lastUpdated: true,
 			plugins: [
 				starlightPydocs({
 					packages: [
@@ -45,7 +47,7 @@ export default defineConfig({
 							sourceLink: {
 								host: 'github',
 								repo: 'max-models/template-python',
-								ref: 'main',
+								ref: 'devel',
 								root: '..',
 							},
 							sidebar: { collapsed: false },

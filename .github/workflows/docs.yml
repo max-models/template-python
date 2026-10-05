@@ -1,7 +1,7 @@
 name: Docs
 
 # The Astro + Starlight site in docs/: hand-written pages, the executed tutorials and the API
-# reference. Built on every push and pull request; deployed to GitHub Pages from main.
+# reference. Built on every push and pull request; deployed to GitHub Pages from devel.
 
 on:
   push:
@@ -28,10 +28,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v6
         with:
           python-version: "3.12"
-          cache: pip
+          enable-cache: true
 
       - uses: actions/setup-node@v4
         with:
@@ -41,21 +41,29 @@ jobs:
 
       - name: Install the package with the docs extra
         run: |
-          python -m pip install --upgrade pip
-          pip install -e ".[docs]"
-          python -m ipykernel install --user --name python3
+          uv sync --extra docs
+          uv run python -m ipykernel install --user --name python3
 
       - name: Execute and convert the tutorials
         run: |
-          python docs/tools/notebooks.py execute
-          python docs/tools/notebooks.py convert --strict
+          uv run python docs/tools/notebooks.py execute
+          uv run python docs/tools/notebooks.py convert --strict
 
       - name: Build the site
         working-directory: docs
         run: |
           npm ci
           npm run check:mdx
-          DOCS_PYTHON="$(command -v python)" npm run build
+          DOCS_PYTHON="$(pwd)/../.venv/bin/python" npm run build
+
+      - name: Smoke test the built site
+        working-directory: docs
+        run: |
+          for page in /index.html /getting-started/installation/index.html /tutorials/example-tutorial/index.html /api/app/index.html /api/app/main/index.html; do
+            test -f "dist$page" || { echo "missing dist$page"; exit 1; }
+          done
+          grep -q 'href="/template-python/' dist/index.html || { echo "links do not use the base path"; exit 1; }
+          echo "all pages built with the /template-python base path"
 
       - uses: actions/upload-pages-artifact@v3
         with:
@@ -63,7 +71,7 @@ jobs:
 
   deploy:
     needs: build
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/devel'
     runs-on: ubuntu-latest
     environment:
       name: github-pages

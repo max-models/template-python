@@ -1,8 +1,6 @@
-"""
-Main module of the python package.
-"""
+"""Main module of the python package."""
 
 
-def main():
-    """Main method called from from the command line."""
+def main() -> None:
+    """Print a greeting; the entry point of the ``template-python`` command."""
     print("Hello, world")

@@ -46,7 +46,7 @@ replace() {  # replace <pattern> <replacement> in every file that contains <patt
   done
 }
 
-# 1. The project name: pyproject.toml, README, docs, workflows, ...
+# 1. The project name: pyproject.toml, README, docs, workflows, release-please, ...
 replace "template-python" "${APPNAME}"
 replace "template_python" "${APPNAME_UNDERSCORE}"
 
@@ -58,6 +58,8 @@ replace "from ${PACKAGE}\\.main import main" "from ${APPNAME_UNDERSCORE}.main im
 replace "${PACKAGE}\\.main:main" "${APPNAME_UNDERSCORE}.main:main"
 replace "${PACKAGE}\\.main\\.main" "${APPNAME_UNDERSCORE}.main.main"
 replace "/api/${PACKAGE}/" "/api/${APPNAME_UNDERSCORE}/"
+replace "src/${PACKAGE}/" "src/${APPNAME_UNDERSCORE}/"
+replace "source = \[ \"${PACKAGE}\" \]" "source = [ \"${APPNAME_UNDERSCORE}\" ]"
 replace "^const pythonPackage = '${PACKAGE}';" "const pythonPackage = '${APPNAME_UNDERSCORE}';"
 
 # 4. Remove the workflow that tests this script
