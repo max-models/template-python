@@ -16,32 +16,26 @@ classifiers = [
   "Development Status :: 3 - Alpha",
   "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
   "numpy",
 ]
 
 optional-dependencies.dev = [
-  "black[jupyter]",
-  "isort",
+  "jupyterlab",
+  "pre-commit",
+  "pyproject-fmt",
   "ruff",
   "template-python[test,docs]",
 ]
-# https://medium.com/@pratikdomadiya123/build-project-documentation-quickly-with-the-sphinx-python-2a9732b66594
 optional-dependencies.docs = [
+  "griffe",
   "ipykernel",
-  "myst-parser",
-  "nbconvert",
-  "nbsphinx",
-  "jupyterlab",
-  "linkify-it-py",
-  "pre-commit",
-  "pyproject-fmt",
-  "sphinx",
-  "sphinx-book-theme",
-  "sphinxcontrib-mermaid",
-  "sphinx-design",
+  "nbclient>=0.10",
+  "nbformat>=5.10",
 ]
 optional-dependencies.test = [ "coverage", "pytest" ]
 urls."Source" = "https://github.com/max-models/template-python"
@@ -50,5 +44,12 @@ scripts.template-python = "app.main:main"
 [tool.setuptools.packages.find]
 where = [ "src" ]
 
-[tool.isort]
-profile = "black"
+[tool.ruff]
+target-version = "py310"
+line-length = 88
+extend-include = [ "*.ipynb" ]
+
+[tool.ruff.lint]
+# pycodestyle, pyflakes, isort, pyupgrade and bugbear
+select = [ "B", "E", "F", "I", "UP", "W" ]
+ignore = [ "E501" ] # line length is handled by the formatter

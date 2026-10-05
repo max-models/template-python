@@ -39,11 +39,16 @@ run:
       - build/*
 
 pages:
+  image: node:22
+  before_script: []
   script:
-    - pip install sphinx sphinx-rtd-theme
-    - cd doc
-    - make html
-    - mv build/html/ ../public/
+    - apt-get update && apt-get install -y python3 python3-pip python3-venv
+    - python3 -m venv venv && source venv/bin/activate
+    - pip install -e ".[docs]"
+    - python docs/tools/notebooks.py execute
+    - python docs/tools/notebooks.py convert
+    - cd docs && npm ci && DOCS_PYTHON="$(command -v python)" npm run build
+    - mv dist ../public
   artifacts:
     paths:
       - public
