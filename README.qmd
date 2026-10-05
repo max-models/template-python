@@ -8,6 +8,13 @@ format:
 
 <!-- README.md is generated from README.qmd: edit the .qmd and run `make readme`. -->
 
+[![Tests](https://github.com/max-models/template-python/actions/workflows/test_pytest.yml/badge.svg)](https://github.com/max-models/template-python/actions/workflows/test_pytest.yml)
+[![Static analysis](https://github.com/max-models/template-python/actions/workflows/static_analysis.yml/badge.svg)](https://github.com/max-models/template-python/actions/workflows/static_analysis.yml)
+[![Docs](https://github.com/max-models/template-python/actions/workflows/docs.yml/badge.svg)](https://max-models.github.io/template-python/)
+[![codecov](https://codecov.io/gh/max-models/template-python/branch/main/graph/badge.svg)](https://codecov.io/gh/max-models/template-python)
+[![PyPI](https://img.shields.io/pypi/v/template-python)](https://pypi.org/project/template-python/)
+[![Python](https://img.shields.io/pypi/pyversions/template-python)](https://pypi.org/project/template-python/)
+
 Template repository for Python projects: a `src/` package with a console entry point,
 `pytest` tests, GitHub Actions for tests, static analysis, tutorials, documentation and
 PyPI publishing, and an [Astro](https://astro.build/) + [Starlight](https://starlight.astro.build/)
@@ -29,7 +36,14 @@ and points the entry point, tests and docs at it.
 
 ## Install
 
-Create and activate a Python environment (3.10 or newer):
+With [uv](https://docs.astral.sh/uv/):
+
+```bash
+make install    # uv sync --extra dev, plus the pre-commit hooks
+uv run template-python
+```
+
+Or create and activate a Python environment (3.10 or newer):
 
 ```bash
 python -m venv env
@@ -58,14 +72,17 @@ pip install -e ".[dev]"
 
 ## Development
 
-Formatting and linting use [ruff](https://docs.astral.sh/ruff/), run by
-[pre-commit](https://pre-commit.com/) and in CI:
+Formatting and linting use [ruff](https://docs.astral.sh/ruff/), type checking
+[pyright](https://microsoft.github.io/pyright/), run by [pre-commit](https://pre-commit.com/)
+and in CI:
 
 ```bash
-pre-commit install          # once
-pre-commit run --all-files
-pytest .
+make lint     # ruff check, ruff format --check, pyright
+make test     # pytest with coverage
 ```
+
+Commit messages follow [Conventional Commits](https://www.conventionalcommits.org/); see
+[CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Build docs
 
@@ -89,8 +106,10 @@ make docs-build       # the static site in docs/dist
 make readme
 ```
 
-## Publishing on PyPI
+## Releases
 
-Pushes to `main` publish the package to PyPI with GitHub Actions and trusted publishing
-(OIDC). The one-time PyPI and GitHub configuration is described in the
+[release-please](https://github.com/googleapis/release-please) keeps a release PR open on
+`main` from the commit messages. Merging it tags the release, updates `CHANGELOG.md` and
+publishes the package to PyPI with trusted publishing (OIDC). The one-time PyPI and GitHub
+configuration is described in the
 [publishing guide](https://max-models.github.io/template-python/development/publishing/).

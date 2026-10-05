@@ -1,14 +1,26 @@
-# README (Quarto) and the documentation site (docs/, Astro + Starlight).
+# Development environment (uv), README (Quarto) and the documentation site (docs/, Astro + Starlight).
 # Notebook tool: docs/tools/notebooks.py.
-PYTHON ?= python
+PYTHON ?= .venv/bin/python
 NOTEBOOKS = $(PYTHON) docs/tools/notebooks.py
 DOCS_ENV = DOCS_PYTHON=$(shell $(PYTHON) -c "import sys; print(sys.executable)")
 FORCE ?=
 
-.PHONY: help readme readme-check docs-install docs-notebooks docs-dev docs-build docs-preview docs-clean
+.PHONY: help install test lint readme readme-check docs-install docs-notebooks docs-dev docs-build docs-preview docs-clean
 
 help:  ## list the targets
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-16s %s\n", $$1, $$2}'
+
+install:  ## uv sync with the dev extra, and the pre-commit hooks
+	uv sync --extra dev
+	uv run pre-commit install
+
+test:  ## pytest with coverage
+	uv run pytest --cov .
+
+lint:  ## ruff and pyright
+	uv run ruff check .
+	uv run ruff format --check .
+	uv run pyright src/
 
 readme:  ## render README.md from README.qmd with quarto
 	quarto render README.qmd --to gfm

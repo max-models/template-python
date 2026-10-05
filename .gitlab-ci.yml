@@ -20,34 +20,32 @@ cache:
 
 before_script:
   - python --version ; pip --version # For debugging
-  - pip install virtualenv
-  - virtualenv venv
-  - source venv/bin/activate
+  - pip install uv
+  - uv sync --extra dev
 
 test:
   script:
-    - pip install ruff tox # you can also use tox
-    - pip install --editable ".[test]"
-    - tox -e py,ruff
+    - uv run ruff check .
+    - uv run ruff format --check .
+    - uv run pyright src/
+    - uv run pytest --cov .
 
-run:
+build:
   script:
-    - pip install .
-    # run the command here
+    - uv build
   artifacts:
     paths:
-      - build/*
+      - dist/*
 
 pages:
   image: node:22
   before_script: []
   script:
     - apt-get update && apt-get install -y python3 python3-pip python3-venv
-    - python3 -m venv venv && source venv/bin/activate
-    - pip install -e ".[docs]"
-    - python docs/tools/notebooks.py execute
-    - python docs/tools/notebooks.py convert
-    - cd docs && npm ci && DOCS_PYTHON="$(command -v python)" npm run build
+    - pip install uv && uv sync --extra docs
+    - uv run python docs/tools/notebooks.py execute
+    - uv run python docs/tools/notebooks.py convert
+    - cd docs && npm ci && DOCS_PYTHON="$(pwd)/../.venv/bin/python" npm run build
     - mv dist ../public
   artifacts:
     paths:
