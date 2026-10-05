@@ -69,9 +69,7 @@ instance/
 # Scrapy stuff:
 .scrapy
 
-# Sphinx documentation
-docs/_build/
-docs/source/tutorials/
+# Documentation site (docs/.gitignore has the Astro build output)
 
 # PyBuilder
 .pybuilder/
@@ -172,4 +170,3 @@ cython_debug/
 
 # Unit test output
 junit/
-docs/source/api/_autosummary/

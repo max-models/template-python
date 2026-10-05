@@ -31,16 +31,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
 
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y pandoc
-
       - name: Install project
         run: |
           pip install --upgrade pip
-          pip install ".[dev]"
+          pip install ".[docs]"
+          python -m ipykernel install --user --name python3
 
       - name: Execute tutorials
         run: |
-          jupyter nbconvert --to notebook --execute tutorials/*.ipynb --output-dir=/tmp --ExecutePreprocessor.timeout=300
+          python docs/tools/notebooks.py execute --force

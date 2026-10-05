@@ -14,13 +14,13 @@ APPNAME="$1"
 APPNAME_UNDERSCORE="${APPNAME//-/_}"
 
 # 1. Find and replace "template-python" with app name
-grep -rl "template-python" . --exclude-dir=.git --exclude-dir=docs/build | while IFS= read -r file; do
+grep -rl "template-python" . --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=dist | while IFS= read -r file; do
   LC_ALL=C sed -i.bak "s/template-python/${APPNAME}/g" "$file"
   rm -f "${file}.bak"
 done
 
 # Also replace template_python with appname_underscore
-grep -rl "template_python" . --exclude-dir=.git --exclude-dir=docs/build | while IFS= read -r file; do
+grep -rl "template_python" . --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=dist | while IFS= read -r file; do
   LC_ALL=C sed -i.bak "s/template_python/${APPNAME_UNDERSCORE}/g" "$file"
   rm -f "${file}.bak"
 done
@@ -50,11 +50,18 @@ if [[ -f "pyproject.toml" ]]; then
   rm -f "pyproject.toml.bak"
 fi
 
-# 4. Update docs/source/api/index.rst to reference the new module name
-if [[ -f "docs/source/api/index.rst" ]]; then
-  LC_ALL=C sed -i.bak "s/^   app$/   ${APPNAME_UNDERSCORE}/" "docs/source/api/index.rst"
-  rm -f "docs/source/api/index.rst.bak"
+# 4. Point the docs at the new package: the API reference (docs/astro.config.mjs) and the
+#    "API" link of the top navigation (docs/src/components/Header.astro)
+if [[ -f "docs/astro.config.mjs" ]]; then
+  LC_ALL=C sed -i.bak "s/^const pythonPackage = 'app';/const pythonPackage = '${APPNAME_UNDERSCORE}';/" "docs/astro.config.mjs"
+  rm -f "docs/astro.config.mjs.bak"
 fi
+for file in docs/src/components/Header.astro docs/src/content/docs/index.mdx docs/src/content/docs/getting-started/quickstart.md; do
+  if [[ -f "$file" ]]; then
+    LC_ALL=C sed -i.bak "s#/api/app/#/api/${APPNAME_UNDERSCORE}/#g; s/from app\.main import main/from ${APPNAME_UNDERSCORE}.main import main/g; s/app\.main\.main/${APPNAME_UNDERSCORE}.main.main/g" "$file"
+    rm -f "${file}.bak"
+  fi
+done
 
 # 5. Remove the test_setup_script.yml workflow since it's no longer needed
 if [[ -f ".github/workflows/test_setup_script.yml" ]]; then

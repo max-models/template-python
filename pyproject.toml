@@ -25,23 +25,17 @@ dependencies = [
 optional-dependencies.dev = [
   "black[jupyter]",
   "isort",
+  "jupyterlab",
+  "pre-commit",
+  "pyproject-fmt",
   "ruff",
   "template-python[test,docs]",
 ]
-# https://medium.com/@pratikdomadiya123/build-project-documentation-quickly-with-the-sphinx-python-2a9732b66594
 optional-dependencies.docs = [
+  "griffe",
   "ipykernel",
-  "myst-parser",
-  "nbconvert",
-  "nbsphinx",
-  "jupyterlab",
-  "linkify-it-py",
-  "pre-commit",
-  "pyproject-fmt",
-  "sphinx",
-  "sphinx-book-theme",
-  "sphinxcontrib-mermaid",
-  "sphinx-design",
+  "nbclient>=0.10",
+  "nbformat>=5.10",
 ]
 optional-dependencies.test = [ "coverage", "pytest" ]
 urls."Source" = "https://github.com/max-models/template-python"
