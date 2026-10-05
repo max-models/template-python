@@ -1,13 +1,21 @@
-# Documentation site (docs/, Astro + Starlight). Notebook tool: docs/tools/notebooks.py.
+# README (Quarto) and the documentation site (docs/, Astro + Starlight).
+# Notebook tool: docs/tools/notebooks.py.
 PYTHON ?= python
 NOTEBOOKS = $(PYTHON) docs/tools/notebooks.py
 DOCS_ENV = DOCS_PYTHON=$(shell $(PYTHON) -c "import sys; print(sys.executable)")
 FORCE ?=
 
-.PHONY: help docs-install docs-notebooks docs-dev docs-build docs-preview docs-clean
+.PHONY: help readme readme-check docs-install docs-notebooks docs-dev docs-build docs-preview docs-clean
 
 help:  ## list the targets
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-16s %s\n", $$1, $$2}'
+
+readme:  ## render README.md from README.qmd with quarto
+	quarto render README.qmd --to gfm
+
+readme-check:  ## fail if README.md is out of date with README.qmd
+	$(MAKE) readme
+	git diff --exit-code README.md
 
 docs-install:  ## Python docs extra and the npm packages
 	$(PYTHON) -m pip install -e ".[docs]"

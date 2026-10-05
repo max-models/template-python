@@ -170,3 +170,7 @@ cython_debug/
 
 # Unit test output
 junit/
+
+# Quarto
+.quarto/
+README_files/

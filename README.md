@@ -1,78 +1,96 @@
 # template-python
 
-Template repository for python projects
 
-Documentation: https://max-models.github.io/template-python/
+<!-- README.md is generated from README.qmd: edit the .qmd and run `make readme`. -->
 
-# Install
+Template repository for Python projects: a `src/` package with a console
+entry point, `pytest` tests, GitHub Actions for tests, static analysis,
+tutorials, documentation and PyPI publishing, and an
+[Astro](https://astro.build/) +
+[Starlight](https://starlight.astro.build/) documentation site.
 
-Create and activate python environment
+Documentation: <https://max-models.github.io/template-python/>
 
+## Use the template
+
+Create a repository from this template, then rename the package:
+
+``` bash
+bash setup_project.sh my-app
+rm setup_project.sh
 ```
+
+This replaces `template-python` with `my-app` everywhere, moves
+`src/app` to `src/my_app`, and points the entry point, tests and docs at
+it.
+
+## Install
+
+Create and activate a Python environment (3.10 or newer):
+
+``` bash
 python -m venv env
 source env/bin/activate
 pip install --upgrade pip
 ```
 
-Install the code and requirements with pip
+Install the code and requirements with pip:
 
-```
+``` bash
 pip install -e .
 ```
 
-Run the code with
+Run the code with:
 
-```
+``` bash
 template-python
 ```
 
-# Build docs
+The `test`, `docs` and `dev` extras install the test runner, the
+documentation tooling and the linters:
 
-The documentation in `docs/` is an [Astro](https://astro.build/) + [Starlight](https://starlight.astro.build/)
-site: hand-written pages, the notebooks in `tutorials/` executed and published as pages, and the
-API reference generated from the docstrings with [starlight-pydocs](https://ewels.github.io/starlight-pydocs/).
-It needs Node 22 or newer.
-
+``` bash
+pip install -e ".[dev]"
 ```
+
+## Development
+
+Formatting and linting use [ruff](https://docs.astral.sh/ruff/), run by
+[pre-commit](https://pre-commit.com/) and in CI:
+
+``` bash
+pre-commit install          # once
+pre-commit run --all-files
+pytest .
+```
+
+## Build docs
+
+The documentation in `docs/` is an Astro + Starlight site: hand-written
+pages, the notebooks in `tutorials/` executed and published as pages,
+and the API reference generated from the docstrings with
+[starlight-pydocs](https://ewels.github.io/starlight-pydocs/). It needs
+Node 22 or newer.
+
+``` bash
 make docs-install     # npm packages and the Python docs extra
 make docs-notebooks   # execute tutorials/*.ipynb and convert them to pages
 make docs-dev         # live preview at http://localhost:4321/template-python/
 make docs-build       # the static site in docs/dist
 ```
 
-# Publishing on PyPI
+## Build the README
 
-This project is configured to automatically publish to PyPI using GitHub Actions with trusted publishing (OIDC).
+`README.md` is rendered from `README.qmd` with
+[Quarto](https://quarto.org/):
 
-## Setup (One-time configuration)
+``` bash
+make readme
+```
 
-### 1. Create PyPI Account and Project
+## Publishing on PyPI
 
-1. Create an account on [PyPI](https://pypi.org/)
-2. Create a new project or claim your project name
-
-### 2. Configure Trusted Publishing on PyPI
-
-1. Go to your PyPI project settings
-2. Navigate to "Publishing" → "Add a new publisher"
-3. Configure the trusted publisher with these details:
-   - **PyPI Project Name**: `template-python` (or your project name)
-   - **Owner**: Your GitHub username/organization
-   - **Repository name**: `template-python`
-   - **Workflow name**: `publish_pypi.yml`
-   - **Environment name**: `pypi`
-
-### 3. Configure GitHub Environment (Optional but Recommended)
-
-1. Go to your GitHub repository → Settings → Environments
-2. Create an environment named `pypi`
-3. Add protection rules:
-   - Deployment branches: Only `main` branch
-
-## Publishing Process
-
-Once configured, publishing is automatic:
-
-1. **Merge to main branch**: Any push to the `main` branch triggers the workflow
-2. **Automatic build**: The workflow builds the Python package
-3. **Automatic publish**: The package is automatically published to PyPI using trusted publishing
+Pushes to `main` publish the package to PyPI with GitHub Actions and
+trusted publishing (OIDC). The one-time PyPI and GitHub configuration is
+described in the [publishing
+guide](https://max-models.github.io/template-python/development/publishing/).
