@@ -13,7 +13,7 @@ analysis](https://github.com/max-models/template-python/actions/workflows/static
 
 Template repository for Python projects: a `src/` package with a console
 entry point, `pytest` tests, GitHub Actions for tests, static analysis,
-guides, documentation and PyPI publishing, and an
+tutorials, documentation and PyPI publishing, and an
 [Astro](https://astro.build/) +
 [Starlight](https://starlight.astro.build/) documentation site.
 
@@ -86,14 +86,14 @@ Commits](https://www.conventionalcommits.org/); see
 ## Build docs
 
 The documentation in `docs/` is an Astro + Starlight site: hand-written
-pages, the notebooks in `guides/` executed and published as pages,
+pages, the notebooks in `tutorials/` executed and published as pages,
 and the API reference generated from the docstrings with
 [starlight-pydocs](https://ewels.github.io/starlight-pydocs/). It needs
 Node 22 or newer.
 
 ``` bash
 make docs-install     # npm packages and the Python docs extra
-make docs-notebooks   # execute guides/*.ipynb and convert them to pages
+make docs-notebooks   # execute tutorials/*.ipynb and convert them to pages
 make docs-dev         # live preview at http://localhost:4321/template-python/
 make docs-build       # the static site in docs/dist
 ```
@@ -115,4 +115,4 @@ its release date), and add the release notes to `CHANGELOG.md`. The push
 to `main` creates a GitHub release with a `vX.Y.Z` tag and publishes the
 package to PyPI with trusted publishing (OIDC). The one-time PyPI and
 GitHub configuration is described in the [publishing
-guide](https://max-models.github.io/template-python/development/publishing/).
+tutorial](https://max-models.github.io/template-python/development/publishing/).

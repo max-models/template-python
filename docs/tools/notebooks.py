@@ -1,11 +1,11 @@
-"""Execute the notebooks in ``guides/`` and convert them into Starlight MDX pages.
+"""Execute the notebooks in ``tutorials/`` and convert them into Starlight MDX pages.
 
 ``execute``
     Runs each notebook with nbclient into ``docs/.cache/notebooks/<slug>.ipynb``. A notebook is
     rerun only when the hash of its cells changes (``--force`` reruns all of them).
 ``convert``
-    Writes ``docs/src/content/docs/guides/<slug>.mdx`` from the executed copy, the images into
-    ``docs/public/guides/<slug>/`` and a downloadable copy of the notebook next to them.
+    Writes ``docs/src/content/docs/tutorials/<slug>.mdx`` from the executed copy, the images into
+    ``docs/public/tutorials/<slug>/`` and a downloadable copy of the notebook next to them.
     Notebooks that have not been executed are converted without outputs (``--strict`` fails on
     them, and on notebooks whose run raised).
 ``clean``
@@ -28,10 +28,10 @@ from typing import Any
 
 DOCS = Path(__file__).resolve().parents[1]
 REPO = DOCS.parent
-NOTEBOOKS = REPO / "guides"
+NOTEBOOKS = REPO / "tutorials"
 CACHE = DOCS / ".cache" / "notebooks"
-CONTENT = DOCS / "src" / "content" / "docs" / "guides"
-PUBLIC = DOCS / "public" / "guides"
+CONTENT = DOCS / "src" / "content" / "docs" / "tutorials"
+PUBLIC = DOCS / "public" / "tutorials"
 COMPONENTS = "../../../components"
 
 
@@ -226,7 +226,7 @@ class Page:
         self.assets += 1
         self.public.mkdir(parents=True, exist_ok=True)
         name = f"{self.assets}{suffix}"
-        return self.public / name, f"/guides/{self.slug}/{name}"
+        return self.public / name, f"/tutorials/{self.slug}/{name}"
 
 
 def _fence(text: str, language: str = "text") -> str:
@@ -357,8 +357,8 @@ def convert_notebook(source: Path, executed: Path | None, order: int) -> Page:
         "---",
     ]
     header = (
-        f'<NotebookHeader download="/guides/{slug}/{source.name}" '
-        f'source="guides/{source.name}" status="{status}" />'
+        f'<NotebookHeader download="/tutorials/{slug}/{source.name}" '
+        f'source="tutorials/{source.name}" status="{status}" />'
     )
     text = (
         "\n".join(frontmatter) + "\n\n" + "\n".join(imports) + "\n\n" + header + "\n\n"

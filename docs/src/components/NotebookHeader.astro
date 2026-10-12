@@ -1,18 +1,18 @@
 ---
-// The strip at the top of a guide page: download the notebook and open it on GitHub
+// The strip at the top of a tutorial page: download the notebook and open it on GitHub
 // (written by tools/notebooks.py).
 import { withBase } from '../utils/base';
 
 export interface Props {
-	/** Site-root path of the downloadable notebook under public/, e.g. "/guides/example-tutorial/example_tutorial.ipynb". */
+	/** Site-root path of the downloadable notebook under public/, e.g. "/tutorials/example-tutorial/example_tutorial.ipynb". */
 	download: string;
-	/** Repository path of the notebook, e.g. "guides/example_tutorial.ipynb". */
+	/** Repository path of the notebook, e.g. "tutorials/example_tutorial.ipynb". */
 	source: string;
 	/** "executed" (outputs from a run at build time) or "not run". */
 	status?: 'executed' | 'not run';
 }
 const { download, source, status = 'executed' } = Astro.props;
-const filename = download.split('/').at(-1) ?? 'guide.ipynb';
+const filename = download.split('/').at(-1) ?? 'tutorial.ipynb';
 const github = `https://github.com/max-models/template-python/blob/devel/${source}`;
 const notes = {
 	executed: 'Run when the site was built.',
