@@ -40,7 +40,9 @@ def slug_of(path: Path) -> str:
 
 
 def notebooks() -> list[Path]:
-    return sorted(NOTEBOOKS.glob("*.ipynb"))
+    return sorted(
+        NOTEBOOKS.glob("*.ipynb"), key=lambda path: (path.stem != "index", path.name)
+    )
 
 
 # Execution ------------------------------------------------------------------------------- #
