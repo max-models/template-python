@@ -6,3 +6,5 @@ node_modules/
 .cache/
 public/tutorials/
 src/content/docs/tutorials/*.mdx
+public/full-examples/
+src/content/docs/full-examples/

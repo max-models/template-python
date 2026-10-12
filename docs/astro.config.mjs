@@ -74,6 +74,10 @@ export default defineConfig({
 					items: [{ autogenerate: { directory: 'tutorials' } }],
 				},
 				{
+					label: 'Full examples',
+					items: [{ autogenerate: { directory: 'full-examples' } }],
+				},
+				{
 					label: 'Development',
 					items: [
 						{ label: 'Building the docs', slug: 'development/docs' },
