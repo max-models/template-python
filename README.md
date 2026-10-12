@@ -87,8 +87,8 @@ Commits](https://www.conventionalcommits.org/); see
 
 The documentation in `docs/` is an Astro + Starlight site: hand-written
 pages, the notebooks in `tutorials/` executed and published as pages,
-complete Python scripts in `examples/` published with their plots,
-and the API reference generated from the docstrings with
+complete Python scripts in `examples/` published with their plots, and
+the API reference generated from the docstrings with
 [starlight-pydocs](https://ewels.github.io/starlight-pydocs/). It needs
 Node 22 or newer.
 
