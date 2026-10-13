@@ -8,11 +8,14 @@ import os
 import re
 import runpy
 import shutil
+import sys
 from pathlib import Path
 
-from notebooks import sanitize_markdown
-
 DOCS = Path(__file__).resolve().parents[1]
+
+# The MDX escaping of the theme's notebook tool (installed with the npm packages)
+sys.path.insert(0, str(DOCS / "node_modules" / "@max-models" / "starlight-theme" / "tools"))
+from notebooks import sanitize_markdown  # noqa: E402
 ROOT = DOCS.parent
 SOURCES = ROOT / "examples"
 CONTENT = DOCS / "src" / "content" / "docs" / "full-examples"
