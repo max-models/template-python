@@ -5,9 +5,10 @@ import sys
 from pathlib import Path
 
 import pytest
-import tomllib
 
+# the script needs packaging, and tomllib (Python 3.11+); the workflow runs it on 3.12
 pytest.importorskip("packaging")
+tomllib = pytest.importorskip("tomllib")
 
 ROOT = Path(__file__).resolve().parents[4]
 SCRIPT = ROOT / "scripts" / "check_pypi_dependencies.py"
