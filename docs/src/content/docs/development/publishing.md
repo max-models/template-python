@@ -33,6 +33,24 @@ Before merging a release to `main`, update the version in `pyproject.toml` and `
 3. Optionally, in the GitHub repository settings create an environment named `pypi` whose
    deployment branches are limited to `main`.
 
+### Dependencies must come from PyPI
+
+PyPI rejects an upload whose metadata has a direct reference, such as
+`cunumpy @ git+https://github.com/org/cunumpy.git@devel` ("400 Can't have direct dependency"),
+and the `Release` workflow would only fail after the merge to `main`. The `PyPI dependencies`
+workflow checks this on every pull request to `main`, with `scripts/check_pypi_dependencies.py`.
+It fails when a dependency, or an optional dependency, is
+
+- a direct reference (`name @ git+https://...` or `name @ file:///...`),
+- a project that PyPI does not know, or
+- a version range that no release on PyPI satisfies (for example `cunumpy>=0.7` before 0.7.0 is
+  published), so a dependency has to be released before the package that needs it.
+
+During development a dependency can come from git without touching the published metadata, with
+`[tool.uv.sources]` (`cunumpy = { git = "https://github.com/org/cunumpy", branch = "devel" }`)
+next to a plain `"cunumpy>=0.6.3"` requirement. Run the check locally with
+`uv run --no-project --with packaging python scripts/check_pypi_dependencies.py`.
+
 ### Coverage
 
 The tests upload coverage to [Codecov](https://codecov.io/). Public repositories need no
