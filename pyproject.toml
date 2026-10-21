@@ -20,6 +20,8 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
 ]
+# PyPI rejects direct references (name @ git+...), so only version ranges go here; the
+# max-models packages come from their devel branches through [tool.uv.sources]
 dependencies = [
   "numpy",
 ]
@@ -73,3 +75,9 @@ ini_options.addopts = "-ra"
 run.omit = [ "*/tests/*" ]
 run.source = [ "app" ]
 report.show_missing = true
+
+# PRs to devel test against the devel branches of the max-models packages (pinned in
+# uv.lock); PRs to main and the release use PyPI only (CI sets UV_NO_SOURCES).
+[tool.uv.sources]
+# one entry per max-models package in [project], spelled exactly like this in every repo:
+# cunumpy = { git = "https://github.com/max-models/cunumpy", branch = "devel" }
