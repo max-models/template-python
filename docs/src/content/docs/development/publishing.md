@@ -13,9 +13,9 @@ Enable GitHub Pages once in the repository settings, with "GitHub Actions" as th
 
 ## Releases and PyPI
 
-Before merging a release to `main`, update the version in `pyproject.toml`,
-`src/app/__init__.py` and `CITATION.cff` (including its release date), and add the release notes
-to `CHANGELOG.md`. On every push to `main`, the `Release` workflow:
+Before merging a release to `main`, update the version in `pyproject.toml` and `CITATION.cff`
+(including its release date), and add the release notes to `CHANGELOG.md`. The package's
+`__version__` is read from the installed metadata, so it follows `pyproject.toml`. On every push to `main`, the `Release` workflow:
 
 1. tags the release `vX.Y.Z` and creates the GitHub release,
 2. builds the package with `uv build` and publishes it to PyPI with trusted publishing (OIDC),

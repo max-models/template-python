@@ -11,6 +11,11 @@ format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   `main`, fail if a dependency is a direct reference (`name @ git+https://...`), is not on PyPI, or
   has a version range that no release satisfies, instead of failing the release after the merge.
 
+### Changed
+
+- `__version__` is read from the installed package metadata (`importlib.metadata`), not hardcoded,
+  so it can no longer disagree with `pyproject.toml` (a hardcoded one went stale in releases).
+
 ## [0.1.0] - 2026-10-05
 
 ### Added
