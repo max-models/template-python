@@ -46,10 +46,20 @@ It fails when a dependency, or an optional dependency, is
 - a version range that no release on PyPI satisfies (for example `cunumpy>=0.7` before 0.7.0 is
   published), so a dependency has to be released before the package that needs it.
 
-During development a dependency can come from git without touching the published metadata, with
-`[tool.uv.sources]` (`cunumpy = { git = "https://github.com/org/cunumpy", branch = "devel" }`)
-next to a plain `"cunumpy>=0.6.3"` requirement. Run the check locally with
+The `Test Pytest` workflow also builds the wheel on pull requests to `main` and fails if its
+metadata has a direct reference. Run the check locally with
 `uv run --no-project --with packaging python scripts/check_pypi_dependencies.py`.
+
+### Development against the devel branches
+
+Pull requests to `devel` test against the devel branches of the max-models packages, pinned in
+`uv.lock`; pull requests to `main` and the release use PyPI only (CI sets `UV_NO_SOURCES`). Each
+max-models dependency is a plain `"cunumpy>=0.6.3"` requirement plus an entry in
+`[tool.uv.sources]`, spelled the same in every repository: `cunumpy = { git =
+"https://github.com/max-models/cunumpy", branch = "devel" }`. Refresh the pinned devel commit
+with `uv lock --upgrade-package cunumpy`, and reproduce a run against PyPI with
+`UV_NO_SOURCES=true uv sync --extra test` (it rewrites `uv.lock`, so `git restore uv.lock`
+afterwards).
 
 ### Coverage
 
