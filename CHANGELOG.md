@@ -5,6 +5,11 @@ format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- `setup_project.sh` also renames the docs smoke paths (`api/app/...` in `docs.yml`), so the
+  docs build of a new project no longer looks for the template's API pages.
+
 ### Added
 
 - Opt-in scope-profiler regions, as in plasmacoll, wellbalanced and patchwork: `_profiling.py`

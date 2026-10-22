@@ -58,7 +58,8 @@ replace "from ${PACKAGE}\\.main import main" "from ${APPNAME_UNDERSCORE}.main im
 replace "from ${PACKAGE}\\._profiling import" "from ${APPNAME_UNDERSCORE}._profiling import"
 replace "${PACKAGE}\\.main:main" "${APPNAME_UNDERSCORE}.main:main"
 replace "${PACKAGE}\\.main\\.main" "${APPNAME_UNDERSCORE}.main.main"
-replace "/api/${PACKAGE}/" "/api/${APPNAME_UNDERSCORE}/"
+# also the docs smoke paths, which are relative (api/app/...)
+replace "api/${PACKAGE}/" "api/${APPNAME_UNDERSCORE}/"
 replace "src/${PACKAGE}/" "src/${APPNAME_UNDERSCORE}/"
 replace "source = \[ \"${PACKAGE}\" \]" "source = [ \"${APPNAME_UNDERSCORE}\" ]"
 replace "pythonPackage: '${PACKAGE}'," "pythonPackage: '${APPNAME_UNDERSCORE}',"
