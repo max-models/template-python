@@ -55,6 +55,7 @@ mv "src/${PACKAGE}" "src/${APPNAME_UNDERSCORE}"
 
 # 3. Imports, the entry point, the API reference and the docs links
 replace "from ${PACKAGE}\\.main import main" "from ${APPNAME_UNDERSCORE}.main import main"
+replace "from ${PACKAGE}\\._profiling import" "from ${APPNAME_UNDERSCORE}._profiling import"
 replace "${PACKAGE}\\.main:main" "${APPNAME_UNDERSCORE}.main:main"
 replace "${PACKAGE}\\.main\\.main" "${APPNAME_UNDERSCORE}.main.main"
 replace "/api/${PACKAGE}/" "/api/${APPNAME_UNDERSCORE}/"
