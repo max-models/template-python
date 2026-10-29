@@ -13,7 +13,7 @@ analysis](https://github.com/max-models/template-python/actions/workflows/static
 
 Template repository for Python projects: a `src/` package with a console
 entry point, `pytest` tests, GitHub Actions for tests, static analysis,
-tutorials, documentation and PyPI publishing, and an
+example notebooks, documentation and PyPI publishing, and an
 [Astro](https://astro.build/) +
 [Starlight](https://starlight.astro.build/) documentation site.
 
