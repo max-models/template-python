@@ -3,7 +3,7 @@ title: template-python
 description: Template repository for Python projects.
 template: splash
 hero:
-  tagline: A starting point for a Python package with tests, CI, tutorials and an Astro documentation site.
+  tagline: A starting point for a Python package with tests, CI, examples and an Astro documentation site.
   actions:
     - text: Get started
       link: /template-python/getting-started/installation/
@@ -23,13 +23,11 @@ import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
 		A `src/` layout with a console entry point, `pytest` tests and a `pyproject.toml` ready for PyPI.
 	</Card>
 	<Card title="Continuous integration" icon="rocket">
-		GitHub Actions for tests, static analysis, tutorial execution, documentation and PyPI publishing.
+		GitHub Actions for tests, static analysis, notebook execution, documentation and PyPI publishing.
 	</Card>
-	<Card title="Tutorials" icon="document">
-		Jupyter notebooks in `tutorials/` are executed and published as pages of this site.
-	</Card>
-	<Card title="Full examples" icon="document">
-		Complete Python scripts in `examples/` are shown with their plots.
+	<Card title="Examples" icon="document">
+		Jupyter notebooks in `tutorials/` are executed and published as pages of this site, and
+		complete Python scripts in `examples/` are shown with their plots.
 	</Card>
 	<Card title="API reference" icon="setting">
 		Every module, class and function is documented from the docstrings with starlight-pydocs.
@@ -41,7 +39,6 @@ import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
 <CardGrid>
 	<LinkCard title="Installation" href="/template-python/getting-started/installation/" description="Create an environment and install the package." />
 	<LinkCard title="Quickstart" href="/template-python/getting-started/quickstart/" description="Run the command line entry point." />
-	<LinkCard title="Tutorials" href="/template-python/tutorials/" description="Executed notebooks with their outputs." />
-	<LinkCard title="Full examples" href="/template-python/full-examples/" description="Complete scripts and their plots." />
+	<LinkCard title="Examples" href="/template-python/examples/" description="Executed notebooks and complete scripts with their outputs." />
 	<LinkCard title="API reference" href="/template-python/api/app/" description="Generated from the docstrings." />
 </CardGrid>
