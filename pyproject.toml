@@ -24,7 +24,7 @@ classifiers = [
 # max-models packages come from their devel branches through [tool.uv.sources]
 dependencies = [
   "numpy",
-  "scope-profiler>=0.7.5",
+  "scope-profiler>=0.8.0",
 ]
 optional-dependencies.dev = [
   "jupyterlab",
